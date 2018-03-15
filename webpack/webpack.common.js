@@ -2,8 +2,10 @@ var webpack = require('webpack');
 var helpers = require('./helpers');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 
 module.exports = {
+
   entry: {
     'polyfills': './src/polyfills.ts',
     'vendor': './src/vendor.ts',
@@ -11,7 +13,10 @@ module.exports = {
   },
 
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    plugins: [
+      new TsConfigPathsPlugin()
+    ]
   },
   
   module: {
@@ -33,10 +38,23 @@ module.exports = {
         include: helpers.root('src'),
         loaders: ['to-string-loader', 'css-loader']
       },
+      {
+        test: /\.html$/,
+        loader: 'html-loader'
+      },
     ]
   },
 
   plugins: [
+
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      jquery: 'jquery',
+      "window.jQuery": "jquery",
+      Popper: ['popper.js', 'default'],
+    }),
+    
     // Workaround for https://github.com/angular/angular/issues/11580
     new webpack.ContextReplacementPlugin(
       /(.+)?angular(\\|\/)core(.+)?/,

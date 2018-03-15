@@ -1,12 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, Inject, forwardRef, OnInit, AfterViewInit } from '@angular/core';
 
 import '../../assets/styles.css';
 
+import { Language } from '../core';
+
 @Component({
   selector: 'app',
-  template: `
-    <p>WORKING!</p>
-  `,
-  styleUrls: ['./app.styles.css']
+  templateUrl: './app.template.html',
+  styleUrls: ['./app.style.css']
 })
-export class AppComponent { }
+export class AppComponent implements AfterViewInit {
+  constructor() { }
+
+  ngAfterViewInit() { }
+}

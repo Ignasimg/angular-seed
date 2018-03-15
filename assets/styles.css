@@ -1,3 +1,7 @@
-p {
-  color: red;
+/*
+* Global styles in this file
+*/
+
+.modal-title {
+  width: 100%;
 }
